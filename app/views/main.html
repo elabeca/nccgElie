@@ -1,23 +1,89 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
+<!-- <div class="jumbotron">
+  <h1>T</h1>
   <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
   </p>
   <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
 </div>
 
 <div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
 
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
+</div> -->
+<div ng-controller="MainCtrl">
+  <form name="customerEntryForm" ng-submit="customerEntryForm.$valid && addCustomer()" novalidate>
+    <div class="form-group">
+      <label for="input_name">Name</label>
+      <input type="text" class="form-control" id="input_name" ng-model="customer.name" placeholder="Enter name" required>
+    </div>
 
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+    <div class="form-group">
+      <label for="input_email">Email address</label>
+      <input type="email" class="form-control" id="input_email" ng-model="customer.email" placeholder="Enter email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="input_dob">Date of birth</label>
+      <input type="date" class="form-control" id="input_dob" ng-model="customer.dob" placeholder="Enter date of birth" required>
+    </div>
+
+    <div class="btn-group">
+      <label>Number of children</label><br/>
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        {{customer.numOfChildren}} <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12]"><a ng-click="setNumOfChildren(customer, i)">{{i}}</a></li>
+      </ul>
+    </div>
+
+    <br/><br/>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-default btn-primary">Add</button>
+    </div>
+  </form>
+  <br/>
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center">Select</th>
+        <th class="text-center">Name</th>
+        <th class="text-center">Email</th>
+        <th class="text-center">DOB</th>
+        <th class="text-center"># Children</th>
+        <th class="text-center">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="c in customers track by $index">
+        <th class="text-center"><input ng-show="!c.isEditing" type="checkbox" aria-label="Select" ng-model="c.isSelected"></th>
+        <td ng-show="!c.isEditing">{{c.name}}</td>
+        <td ng-show="c.isEditing"><input type="text" class="form-control" id="grid_name" ng-model="c.name" placeholder="Enter name"></td>
+        <td ng-show="!c.isEditing">{{c.email}}</td>
+        <td ng-show="c.isEditing"><input type="email" class="form-control" id="grid_email" ng-model="c.email" placeholder="Enter email"></td>
+        <td ng-show="!c.isEditing" class="text-center">{{c.dob | date}}</td>
+        <td ng-show="c.isEditing"><input type="date" class="form-control" id="grid_dob" ng-model="c.dob" placeholder="Enter date of birth"></td>
+        <td ng-show="!c.isEditing" class="text-center">{{c.numOfChildren}}</td>
+        <td ng-show="c.isEditing">
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              {{c.numOfChildren}} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12]"><a ng-click="setNumOfChildren(c, i)">{{i}}</a></li>
+            </ul>
+          </div>
+        </td>
+        <td ng-show="!c.isEditing" class="text-center">
+          <button type="submit" class="btn btn-default btn-success" ng-click="setEditMode(c, true)">Edit</button>
+        </td>
+        <td ng-show="c.isEditing" class="text-center">
+          <button type="submit" class="btn btn-default btn-primary" ng-click="setEditMode(c, false)">Update</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="pull-right btn btn-default btn-danger" ng-show="customers.length" ng-click="deleteCustomers()">Delete selected</button>
+  <br/><br/>
 </div>
