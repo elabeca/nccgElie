@@ -43,20 +43,29 @@
   </form>
   <br/>
 
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="input-group">
+        <label for="search">Search</label>
+        <input id="search" aria-label="Search" type="text" class="form-control" placeholder="by name or email..." ng-model="searchValue">
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
+  <br/>
 
   <table class="table table-bordered">
     <thead>
       <tr>
         <th class="text-center">Select</th>
-        <th class="text-center">Name</th>
-        <th class="text-center">Email</th>
-        <th class="text-center">DOB</th>
-        <th class="text-center"># Children</th>
+        <th class="text-center" ng-click="setOrderBy('name')">Name</th>
+        <th class="text-center" ng-click="setOrderBy('email')">Email</th>
+        <th class="text-center" ng-click="setOrderBy('dob')">DOB</th>
+        <th class="text-center" ng-click="setOrderBy('numOfChildren')"># Children</th>
         <th class="text-center">Edit</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="c in customers track by $index">
+      <tr ng-repeat="c in customers | orderBy: orderByDirection + orderByColumn | filter: searchValue">
         <th class="text-center"><input ng-show="!c.isEditing" type="checkbox" aria-label="Select" ng-model="c.isSelected"></th>
         <td ng-show="!c.isEditing">{{c.name}}</td>
         <td ng-show="c.isEditing"><input type="text" class="form-control" id="grid_name" ng-model="c.name" placeholder="Enter name"></td>

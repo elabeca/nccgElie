@@ -1,0 +1,24 @@
+[{
+  "name": "John Doe",
+  "email": "john.doe@gmail.com",
+  "numOfChildren": 2,
+  "dob": "01/03/1988"
+},
+{
+  "name": "John Smith",
+  "email": "john.smith@hotmail.com",
+  "numOfChildren": 0,
+  "dob": "12/15/1977"
+},
+{
+  "name": "Alicia Bernard",
+  "email": "alicia.bernard@mail.com",
+  "numOfChildren": 1,
+  "dob": "08/30/1956"
+},
+{
+  "name": "Zebra Right",
+  "email": "zebra.right@facebook.com",
+  "numOfChildren": 5,
+  "dob": "11/05/1991"
+}]
